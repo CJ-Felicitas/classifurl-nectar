@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-nati
 import CheckBox from '@react-native-community/checkbox';
 
 
-export default function DataPrivacyScreen() {
+export default function DataPrivacyScreen({navigation}) {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = () => {
@@ -13,7 +13,7 @@ export default function DataPrivacyScreen() {
   const handleAgreeButtonClick = () => {
     if (isChecked) {
       // Perform the action when the user agrees (e.g., navigate to the next screen)
-      // navigation.navigate('NextScreen');
+      navigation.navigate('HomeScreen');
       console.log('User has agreed.');
     } else {
       console.log('User must agree to the terms and conditions.');
