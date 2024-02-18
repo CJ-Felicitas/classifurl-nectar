@@ -4,7 +4,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SplashScreen from './src/screens/splash';
 import DataPrivacyScreen from './src/screens/dataprivacy';
-import HomeScreen from './src/screens/home';
+
+import ImageDetailsScreen from './src/screens/home/ImageDetailsScreen';
 
 const stack = createNativeStackNavigator();
 const App = () => {
@@ -24,7 +25,7 @@ const App = () => {
           />
           <stack.Screen
             name={'HomeScreen'}
-            component={HomeScreen}
+            component={ImageDetailsScreen}
             options={{headerShown: false}}
           />
         </stack.Navigator>
