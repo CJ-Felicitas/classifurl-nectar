@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 
 
@@ -11,7 +11,8 @@ export default function SplashScreen({navigation}) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.welcomeMessage}>Classifurl</Text>
+      <Image resizeMode='center' source={require('../../assets/applogo.png')} />
+      {/* <Text style={styles.welcomeMessage}>ClassifURL</Text> */}
     </View>
   );
 }
@@ -29,13 +30,13 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   button: {
-    marginTop: 20, // Adjust the spacing between text and button as needed
-    backgroundColor: '#007AFF', // You can change the color as per your design
+    marginTop: 20, 
+    backgroundColor: '#007AFF', 
     padding: 10,
     borderRadius: 8,
   },
   buttonText: {
-    color: '#FFFFFF', // You can change the text color as per your design
+    color: '#FFFFFF', 
     fontSize: 20,
     fontWeight: 'bold',
   },
