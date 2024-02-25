@@ -10,9 +10,9 @@ import {
 } from 'react-native';
 
 import CheckBox from '@react-native-community/checkbox';
-import {BlurView} from '@react-native-community/blur';
 
 export default function DataPrivacyScreen({navigation}) {
+  
   const [isChecked, setIsChecked] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -65,8 +65,6 @@ export default function DataPrivacyScreen({navigation}) {
           </TouchableOpacity>
         </View>
       </View>
-
-      {/* Modal Starts here */}
 
       <Modal
         animationType="slide"
@@ -123,10 +121,6 @@ export default function DataPrivacyScreen({navigation}) {
           </View>
         </View>
       </Modal>
-
-      
-
-
     </ScrollView>
   );
 }
