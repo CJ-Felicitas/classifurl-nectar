@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
-import { View, Text, Button, Image, ScrollView, ActivityIndicator } from 'react-native';
-import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
-import { recognizeImage } from './ImageDetailsUtils';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
+import {recognizeImage} from './ImageDetailsUtils';
 
-export default function ImageDetailsScreen({ navigation }) {
+export default function ImageDetailsScreen({navigation}) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [detectedText, setDetectedText] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [serverResponse, setServerResponse] = useState(null);
 
   const openImagePicker = async () => {
     const options = {
@@ -16,7 +24,7 @@ export default function ImageDetailsScreen({ navigation }) {
       maxWidth: 2000,
     };
 
-    launchImageLibrary(options, async (response) => {
+    launchImageLibrary(options, async response => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -31,7 +39,7 @@ export default function ImageDetailsScreen({ navigation }) {
           setIsLoading(false);
 
           if (result?.blocks?.length > 0) {
-            const text = result.blocks.map((block) => block.text).join(' ');
+            const text = result.blocks.map(block => block.text).join(' ');
             setDetectedText(text);
           } else {
             setDetectedText('No text detected');
@@ -53,7 +61,7 @@ export default function ImageDetailsScreen({ navigation }) {
       maxWidth: 2000,
     };
 
-    launchCamera(options, async (response) => {
+    launchCamera(options, async response => {
       console.log('Response = ', response);
       if (response.didCancel) {
         console.log('User cancelled camera');
@@ -69,7 +77,7 @@ export default function ImageDetailsScreen({ navigation }) {
           setIsLoading(false);
 
           if (result?.blocks?.length > 0) {
-            const text = result.blocks.map((block) => block.text).join(' ');
+            const text = result.blocks.map(block => block.text).join(' ');
             setDetectedText(text);
           } else {
             setDetectedText('No text detected');
@@ -82,30 +90,148 @@ export default function ImageDetailsScreen({ navigation }) {
       }
     });
   };
-
+  const fetchData = () => {
+    // Ensure you include the protocol (http or https) in the URL
+    fetch('http://74.226.249.87:3000/api')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Network response was not ok (${response.status} - ${response.statusText})`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Data received:', data);
+        setServerResponse(data.message);
+        // Handle the retrieved data here
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error.message);
+        // Handle errors here
+        if (error.response) {
+          // The request was made and the server responded with a non-2xx status code
+          console.error('Server responded with:', error.response.data);
+          console.error('Headers:', error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.error('No response received. Request details:', error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.error('Error details:', error.message);
+        }
+      });
+  };
+  
   return (
+    
+    // <ScrollView>
+    //   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    //     {selectedImage && (
+    //       <Image
+    //         source={{ uri: selectedImage }}
+    //         style={{ width: 300, height: 300, marginVertical: 20 }}
+    //         resizeMode="contain"
+    //       />
+    //     )}
+    //     {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
+    //     {detectedText !== null && (
+    //       <Text style={{ fontSize: 18, textAlign: 'center', margin: 20 }}>
+    //         {detectedText}
+    //       </Text>
+    //     )}
+    //     <View style={{ marginTop: 20 }}>
+    //       <Button title="Choose from Device" onPress={openImagePicker} />
+    //     </View>
+    //     <View style={{ marginTop: 20, marginBottom: 50 }}>
+    //       <Button title="Open Camera" onPress={handleCameraLaunch} />
+    //     </View>
+    //   </View>
+    // </ScrollView>
+
     <ScrollView>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        {selectedImage && (
-          <Image
-            source={{ uri: selectedImage }}
-            style={{ width: 300, height: 300, marginVertical: 20 }}
-            resizeMode="contain"
-          />
-        )}
-        {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
-        {detectedText !== null && (
-          <Text style={{ fontSize: 18, textAlign: 'center', margin: 20 }}>
-            {detectedText}
-          </Text>
-        )}
-        <View style={{ marginTop: 20 }}>
-          <Button title="Choose from Device" onPress={openImagePicker} />
-        </View>
-        <View style={{ marginTop: 20, marginBottom: 50 }}>
-          <Button title="Open Camera" onPress={handleCameraLaunch} />
-        </View>
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          Welcome
+        </Text>
+        {/* first option */}
+        <TouchableOpacity onPress={fetchData} style={styles.submitOption}>
+          <View style={styles.submitOptionImageView}>
+            <Image
+              source={require('../../assets/applogo.png')}
+              style={styles.submitOptionImage}
+            />
+          </View>
+          <View style={styles.submitOptionTextView}>
+            <Text style={styles.submitOptionText}>Paste URL</Text>
+          </View>
+        </TouchableOpacity>
+
+        {/* second option */}
+        <TouchableOpacity style={styles.submitOption}>
+          <View style={styles.submitOptionImageView}>
+            <Image
+              source={require('../../assets/applogo.png')}
+              style={styles.submitOptionImage}
+            />
+          </View>
+          <View style={styles.submitOptionTextView}>
+            <Text style={styles.submitOptionText}>Paste URL</Text>
+          </View>
+        </TouchableOpacity>
+
+      {/* third option */}
+        <TouchableOpacity style={styles.submitOption}>
+          <View style={styles.submitOptionImageView}>
+            <Image
+              source={require('../../assets/applogo.png')}
+              style={styles.submitOptionImage}
+            />
+          </View>
+          <View style={styles.submitOptionTextView}>
+            <Text style={styles.submitOptionText}>Paste URL</Text>
+          </View>
+        </TouchableOpacity>
+        <Text>{serverResponse}</Text>
       </View>
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 30,
+  },
+  submitOption: {
+    flex: 1,
+    flexDirection: 'row',
+    padding: 25,
+    backgroundColor: 'green',
+    borderRadius: 15,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  submitOptionImage: {
+    width: 40,
+    height: 40,
+  },
+  submitOptionText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  submitOptionTextView: {
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  submitOptionImageView: {
+    marginRight: 20,
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+  welcome:{
+    fontSize: 30,
+    fontWeight: '400',
+    color: 'black'
+  }
+});

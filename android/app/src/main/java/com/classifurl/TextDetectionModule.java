@@ -2,7 +2,6 @@ package com.classifurl;
 
 import android.net.Uri;
 import android.util.Log;
-    
 import androidx.annotation.NonNull;
 
 import com.facebook.react.bridge.Arguments;
@@ -67,7 +66,6 @@ public class TextDetectionModule extends ReactContextBaseJavaModule {
                                             promise.reject("Create Event Error", e);
                                         }
                                     });
-
         } catch (IOException e) {
             e.printStackTrace();
         }
