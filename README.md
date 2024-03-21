@@ -8,7 +8,8 @@ A mobile application that uses machine learning to classify URLs as either benig
 
 ## Usage
 
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/your-username/url-classifier-mobile-app.git
+1. Build
+- go to android directory
+- ```./gradlew clean```
+- ```./gradlew assembleRelease```
+- build are located in android /android/app/build/outputs/apk/release/app=release.apk
