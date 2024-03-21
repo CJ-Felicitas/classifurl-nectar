@@ -150,7 +150,7 @@ export default function ImageDetailsScreen({navigation}) {
     <ScrollView>
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome
+         {serverResponse}
         </Text>
         {/* first option */}
         <TouchableOpacity onPress={fetchData} style={styles.submitOption}>
