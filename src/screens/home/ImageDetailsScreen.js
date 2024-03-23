@@ -6,14 +6,10 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  
 } from 'react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import {recognizeImage} from './ImageDetailsUtils';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// demo only
-import DataPrivacyScreen from '../dataprivacy';
-import SplashScreen from '../splash';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 export default function ImageDetailsScreen({navigation}) {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -21,6 +17,8 @@ export default function ImageDetailsScreen({navigation}) {
   const [isLoading, setIsLoading] = useState(false);
   const [serverResponse, setServerResponse] = useState(null);
   const Tab = createBottomTabNavigator();
+
+  // opens the gallery
   const openImagePicker = async () => {
     const options = {
       mediaType: 'photo',
@@ -29,6 +27,7 @@ export default function ImageDetailsScreen({navigation}) {
       maxWidth: 2000,
     };
 
+    // wala ko kabalo ani unsaon pag pa gana ani
     launchImageLibrary(options, async response => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
@@ -58,6 +57,7 @@ export default function ImageDetailsScreen({navigation}) {
     });
   };
 
+  // opens the camera
   const handleCameraLaunch = async () => {
     const options = {
       mediaType: 'photo',
@@ -66,6 +66,7 @@ export default function ImageDetailsScreen({navigation}) {
       maxWidth: 2000,
     };
 
+    // wala sad ko kabalo para sa asa ni
     launchCamera(options, async response => {
       console.log('Response = ', response);
       if (response.didCancel) {
@@ -95,82 +96,92 @@ export default function ImageDetailsScreen({navigation}) {
       }
     });
   };
-  const fetchData = () => {
-    // Ensure you include the protocol (http or https) in the URL
-    fetch('http://74.226.249.87:3000/api')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Network response was not ok (${response.status} - ${response.statusText})`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Data received:', data);
-        setServerResponse(data.message);
-        // Handle the retrieved data here
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error.message);
-        // Handle errors here
-        if (error.response) {
-          // The request was made and the server responded with a non-2xx status code
-          console.error('Server responded with:', error.response.data);
-          console.error('Headers:', error.response.headers);
-        } else if (error.request) {
-          // The request was made but no response was received
-          console.error('No response received. Request details:', error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.error('Error details:', error.message);
-        }
-      });
+
+  const handlePasteUrlOption = () => {
+    console.log('PasteUrl Component Opened');
+    navigation.navigate('PasteUrl');
   };
 
-  const postData = () => {
-  
-    // Ensure you include the protocol (http or https) in the URL
-    // http://74.226.249.87:3000/api/submiturl
-    fetch('http://74.226.249.87:3000/api/submiturl', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json', // Specify content type
-      },
-      body: JSON.stringify({ 
-        url: "youtube.com",
-      }), // Convert data to JSON string
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Network response was not ok (${response.status} - ${response.statusText})`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Data received:', data);
-        setServerResponse(data.message);
-        // Handle the retrieved data here
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error.message);
-        // Handle errors here
-        if (error.response) {
-          // The request was made and the server responded with a non-2xx status code
-          console.error('Server responded with:', error.response.data);
-          console.error('Headers:', error.response.headers);
-        } else if (error.request) {
-          // The request was made but no response was received
-          console.error('No response received. Request details:', error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.error('Error details:', error.message);
-        }
-      });
-  };
+  // sample code for get request
+  // ***************************
+  // const fetchData = () => {
+  //   // Ensure you include the protocol (http or https) in the URL
+  //   fetch('http://74.226.249.87:3000/api')
+  //     .then(response => {
+  //       if (!response.ok) {
+  //         throw new Error(`Network response was not ok (${response.status} - ${response.statusText})`);
+  //       }
+  //       return response.json();
+  //     })
+  //     .then(data => {
+  //       console.log('Data received:', data);
+  //       setServerResponse(data.message);
+  //       // Handle the retrieved data here
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching data:', error.message);
+  //       // Handle errors here
+  //       if (error.response) {
+  //         // The request was made and the server responded with a non-2xx status code
+  //         console.error('Server responded with:', error.response.data);
+  //         console.error('Headers:', error.response.headers);
+  //       } else if (error.request) {
+  //         // The request was made but no response was received
+  //         console.error('No response received. Request details:', error.request);
+  //       } else {
+  //         // Something happened in setting up the request that triggered an Error
+  //         console.error('Error details:', error.message);
+  //       }
+  //     });
+  // };
 
-  
-  
+  // sample code for post request
+  // ****************************
+  // const postData = () => {
+
+  //   // Ensure you include the protocol (http or https) in the URL
+  //   // http://74.226.249.87:3000/api/submiturl
+
+  //   fetch('http://74.226.249.87:3000/api/submiturl', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json', // Specify content type
+  //     },
+  //     body: JSON.stringify({
+  //       url: "youtube.com",
+  //     }), // Convert data to JSON string
+  //   })
+  //     .then(response => {
+  //       if (!response.ok) {
+  //         throw new Error(`Network response was not ok (${response.status} - ${response.statusText})`);
+  //       }
+  //       return response.json();
+  //     })
+  //     .then(data => {
+  //       console.log('Data received:', data);
+  //       setServerResponse(data.message);
+  //       // Handle the retrieved data here
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching data:', error.message);
+  //       // Handle errors here
+  //       if (error.response) {
+  //         // The request was made and the server responded with a non-2xx status code
+  //         console.error('Server responded with:', error.response.data);
+  //         console.error('Headers:', error.response.headers);
+  //       } else if (error.request) {
+  //         // The request was made but no response was received
+  //         console.error('No response received. Request details:', error.request);
+  //       } else {
+  //         // Something happened in setting up the request that triggered an Error
+  //         console.error('Error details:', error.message);
+  //       }
+  //     });
+  // };
+
   return (
-    
+    // this commented code works before and this is the first ever code that ocr works
+    // ************************
     // <ScrollView>
     //   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     //     {selectedImage && (
@@ -194,20 +205,19 @@ export default function ImageDetailsScreen({navigation}) {
     //     </View>
     //   </View>
     // </ScrollView>
-<View>
+
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-       Classifurl
-        </Text>
+        <Text style={styles.welcome}>Classifurl</Text>
         <Text style={styles.slogan_one}>
-        this is a slogan lorem ipsum something in here
+          this is a slogan lorem ipsum something in here
         </Text>
-        <Text style={styles.slogan_two}>
-        this is a slogan second row
-        </Text>
-        {/* first option */}
-        <TouchableOpacity onPress={fetchData} style={styles.submitOption}>
+        <Text style={styles.slogan_two}>this is a slogan second row</Text>
+
+        {/* first option = scan option */}
+        <TouchableOpacity
+          onPress={handleCameraLaunch}
+          style={styles.submitOption}>
           <View style={styles.submitOptionImageView}>
             <Image
               source={require('../../assets/scan_option.png')}
@@ -219,8 +229,8 @@ export default function ImageDetailsScreen({navigation}) {
           </View>
         </TouchableOpacity>
 
-        {/* second option */}
-        <TouchableOpacity onPress={postData} style={styles.submitOption}>
+        {/* second option = upload image option*/}
+        <TouchableOpacity onPress={openImagePicker} style={styles.submitOption}>
           <View style={styles.submitOptionImageView}>
             <Image
               source={require('../../assets/upload_option.png')}
@@ -229,11 +239,11 @@ export default function ImageDetailsScreen({navigation}) {
           </View>
           <View style={styles.submitOptionTextView}>
             <Text style={styles.submitOptionText}>Upload Image</Text>
-          </View>  
+          </View>
         </TouchableOpacity>
 
-      {/* third option */}
-        <TouchableOpacity style={styles.submitOption}>
+        {/* third option = paste url option*/}
+        <TouchableOpacity onPress={handlePasteUrlOption} style={styles.submitOption}>
           <View style={styles.submitOptionImageView}>
             <Image
               source={require('../../assets/paste_option.png')}
@@ -244,10 +254,8 @@ export default function ImageDetailsScreen({navigation}) {
             <Text style={styles.submitOptionText}>Paste URL</Text>
           </View>
         </TouchableOpacity>
-        <Text>{serverResponse}</Text>
       </View>
     </ScrollView>
-    </View>
   );
 }
 
@@ -284,21 +292,21 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
   },
-  welcome:{
+  welcome: {
     fontSize: 30,
     fontWeight: '900',
-    color: 'black'
+    color: 'black',
   },
-  slogan_one:{
+  slogan_one: {
     marginTop: 5,
     fontSize: 15,
     fontWeight: '400',
-    color: 'black'
+    color: 'black',
   },
-  slogan_two:{
+  slogan_two: {
     fontSize: 15,
     fontWeight: '400',
     color: 'black',
-    marginBottom: 10
-  }
+    marginBottom: 10,
+  },
 });
