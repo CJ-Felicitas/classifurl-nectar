@@ -9,7 +9,7 @@ export default function PasteUrl({navigation}) {
 
     const postData = async () => {
       try {
-          const response = await fetch('http://10.0.254.14:3000/api/submiturl', {
+          const response = await fetch('74.226.249.87:3000/api/submiturl', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
