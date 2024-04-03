@@ -9,7 +9,8 @@ export default function PasteUrl({navigation}) {
 
     const postData = async () => {
       try {
-          const response = await fetch('74.226.249.87:3000/api/submiturl', {
+        // 
+          const response = await fetch('http://74.226.249.87:3000/api/submiturl', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
@@ -24,10 +25,11 @@ export default function PasteUrl({navigation}) {
           }
   
           const data = await response.json();
+          console.log(data);
           console.log('Data received:', data.data);
           console.log('Server response', data.flask);
-          // setReply(data.data)
-          setUrlSubmit(data.data);
+          setReply("nebula(express) = " + data.message + "themis (flask) = " + data.flask)
+          setUrlSubmit(data.data.url);
       } catch (error) {
           console.error('Error fetching data:', error.message);
       }
@@ -42,7 +44,7 @@ export default function PasteUrl({navigation}) {
       style={styles.input}
       />
       <Button onPress={postData} style={styles.fixToText} title='Submit URL' />
-      <Text style={styles.title}>temporary null return</Text>
+      <Text style={styles.title}>{reply}</Text>
       <Text style={styles.title}>the url you sent is "{urlsubmit}"</Text>
     
       </View>
