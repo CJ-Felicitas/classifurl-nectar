@@ -6,21 +6,29 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
+
 import React, {useState, useEffect} from 'react';
 import {useRoute} from '@react-navigation/native';
 import {recognizeImage} from '../home/ImageDetailsUtils';
 
 export default function ImagePreview({navigation}) {
+
   const route = useRoute();
+  // Get the imageUri that is passed from the route params
   const {imageUri} = route.params;
+  // image displayer
   const [selectedImage, setSelectedImage] = useState(null);
+  // var that holds the returned result from the text recognition module
   const [detectedText, setDetectedText] = useState(null);
+  // progress spinner
   const [isLoading, setIsLoading] = useState(false);
 
+  // load the recognize function when the component is mounted
   useEffect(() => {
     recognize(imageUri);
   }, []);
 
+  // function that recognizes the text in the image
   const recognize = async imageUri => {
     setIsLoading(true);
     try {
