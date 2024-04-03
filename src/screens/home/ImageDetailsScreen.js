@@ -7,15 +7,19 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
-import {recognizeImage} from './ImageDetailsUtils';
+// import {recognizeImage} from './ImageDetailsUtils';
+// .
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 export default function ImageDetailsScreen({navigation}) {
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [detectedText, setDetectedText] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [serverResponse, setServerResponse] = useState(null);
+  
   const Tab = createBottomTabNavigator();
 
   // opens the gallery
@@ -27,7 +31,6 @@ export default function ImageDetailsScreen({navigation}) {
       maxWidth: 2000,
     };
 
-    // wala ko kabalo ani unsaon pag pa gana ani
     launchImageLibrary(options, async response => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
@@ -35,30 +38,33 @@ export default function ImageDetailsScreen({navigation}) {
         console.log('Image picker error: ', response.error);
       } else {
         let imageUri = response.uri || response.assets?.[0]?.uri;
-        setSelectedImage(imageUri);
-        setIsLoading(true);
-
-        try {
-          const result = await recognizeImage(imageUri);
-          setIsLoading(false);
-
-          if (result?.blocks?.length > 0) {
-            const text = result.blocks.map(block => block.text).join(' ');
-            setDetectedText(text);
-          } else {
-            setDetectedText('No text detected');
-          }
-        } catch (error) {
-          setIsLoading(false);
-          console.error('Error recognizing image:', error);
-          setDetectedText('Error recognizing image');
-        }
+        navigation.navigate('ImagePreview', { imageUri });
+        // setSelectedImage(imageUri);
+        // setIsLoading(true);
       }
+      //   try {
+      //     const result = await recognizeImage(imageUri);
+      //     setIsLoading(false);
+
+      //     if (result?.blocks?.length > 0) {
+      //       const text = result.blocks.map(block => block.text).join(' ');
+      //       setDetectedText(text);
+      //     } else {
+      //       setDetectedText('No text detected');
+      //     }
+      //   } catch (error) {
+      //     setIsLoading(false);
+      //     console.error('Error recognizing image:', error);
+      //     setDetectedText('Error recognizing image');
+      //   }
+      // }
     });
+
   };
 
   // opens the camera
   const handleCameraLaunch = async () => {
+
     const options = {
       mediaType: 'photo',
       includeBase64: false,
@@ -75,24 +81,24 @@ export default function ImageDetailsScreen({navigation}) {
         console.log('Camera Error: ', response.error);
       } else {
         let imageUri = response.uri || response.assets?.[0]?.uri;
-        setSelectedImage(imageUri);
-        setIsLoading(true);
+        // setSelectedImage(imageUri);
+        // setIsLoading(true);
+        navigation.navigate('ImagePreview', { imageUri });
+        // try {
+        //   const result = await recognizeImage(imageUri);
+        //   setIsLoading(false);
 
-        try {
-          const result = await recognizeImage(imageUri);
-          setIsLoading(false);
-
-          if (result?.blocks?.length > 0) {
-            const text = result.blocks.map(block => block.text).join(' ');
-            setDetectedText(text);
-          } else {
-            setDetectedText('No text detected');
-          }
-        } catch (error) {
-          setIsLoading(false);
-          console.error('Error recognizing image:', error);
-          setDetectedText('Error recognizing image');
-        }
+        //   if (result?.blocks?.length > 0) {
+        //     const text = result.blocks.map(block => block.text).join(' ');
+        //     setDetectedText(text);
+        //   } else {
+        //     setDetectedText('No text detected');
+        //   }
+        // } catch (error) {
+        //   setIsLoading(false);
+        //   console.error('Error recognizing image:', error);
+        //   setDetectedText('Error recognizing image');
+        // }
       }
     });
   };

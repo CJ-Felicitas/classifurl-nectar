@@ -6,7 +6,7 @@ import SplashScreen from './src/screens/splash';
 import DataPrivacyScreen from './src/screens/dataprivacy';
 import PasteUrl from './src/screens/paste';
 import ImageDetailsScreen from './src/screens/home/ImageDetailsScreen';
-
+import ImagePreview from './src/screens/imagepreview';
 const stack = createNativeStackNavigator();
 const App = () => {
   return (
@@ -28,9 +28,14 @@ const App = () => {
             component={ImageDetailsScreen}
             options={{headerShown: false}}
           />
-           <stack.Screen
+          <stack.Screen
             name={'PasteUrl'}
             component={PasteUrl}
+            options={{headerShown: false}}
+          />
+          <stack.Screen
+            name={'ImagePreview'}
+            component={ImagePreview}
             options={{headerShown: false}}
           />
         </stack.Navigator>
