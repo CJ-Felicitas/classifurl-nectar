@@ -1,3 +1,8 @@
+/**
+ * this is the image preview screen that displays the image and the text that is recognized from the image
+ * it could be either upload image or scan an image
+ */
+
 import {
   View,
   Text,
@@ -70,4 +75,6 @@ export default function ImagePreview({navigation}) {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  
+});

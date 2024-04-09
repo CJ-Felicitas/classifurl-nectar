@@ -12,7 +12,6 @@ import {
 import CheckBox from '@react-native-community/checkbox';
 
 export default function DataPrivacyScreen({navigation}) {
-  
   const [isChecked, setIsChecked] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -35,13 +34,13 @@ export default function DataPrivacyScreen({navigation}) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Terms and Conditions</Text>
-      <Image
-        style={styles.logo}
-        resizeMode="contain"
-        source={require('../../assets/applogo.png')}
-      />
-
+      <View style={styles.upperContainer}>
+        <Image
+          style={styles.logo}
+          resizeMode="contain"
+          source={require('../../assets/applogo.png')}
+        />
+      </View>
       <View>
         <View style={styles.checkboxContainer}>
           <CheckBox value={isChecked} onValueChange={handleCheckboxChange} />
@@ -126,11 +125,17 @@ export default function DataPrivacyScreen({navigation}) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
+  upperContainer: {
+    flex: 0.98,
+    margin: 0,
+    borderBottomLeftRadius: 120,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#914186',
+  },
+  container: {
+    flex: 1,
+    paddingBottom: 20,
   },
   title: {
     fontSize: 24,
@@ -145,7 +150,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
-    padding: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    padding: 30,
     justifyContent: 'center',
   },
   checkboxLabel: {
@@ -176,13 +183,14 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   modalContent: {
+    margin: 15,
     backgroundColor: 'white',
     padding: 10,
     borderRadius: 5,
     elevation: 5,
     textAlign: 'justify',
     justifyContent: 'space-between',
-    height: '60%',
+    height: '80%',
   },
   modalTitle: {
     fontSize: 18,

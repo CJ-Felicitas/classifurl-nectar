@@ -1,70 +1,26 @@
-import { StyleSheet, Text, View, Button, Image } from 'react-native'
-import React, {useState} from 'react'
-import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
+import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
 
-export default function Home({navigation}) {
-  const [selectedImage, setSelectedImage] = useState(null);
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
-  const openImagePicker = () => {
-    const options = {
-      mediaType: 'photo',
-      includeBase64: false,
-      maxHeight: 2000,
-      maxWidth: 2000,
-    };
+import BottomNavigatorMenu from '../bottomnavigatormenu';
+import Report from '../report';
+import Help from '../help';
+import Aboutus from '../aboutus';
 
-    launchImageLibrary(options, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('Image picker error: ', response.error);
-      } else {
-        let imageUri = response.uri || response.assets?.[0]?.uri;
-        setSelectedImage(imageUri);
-      }
-    });
-  };
-  
-  handleCameraLaunch = () => {
-    const options = {
-      mediaType: 'photo',
-      includeBase64: false,
-      maxHeight: 2000,
-      maxWidth: 2000,
-    };
-  
-    launchCamera(options, response => {
-      console.log('Response = ', response);
-      if (response.didCancel) {
-        console.log('User cancelled camera');
-      } else if (response.error) {
-        console.log('Camera Error: ', response.error);
-      } else {
-        // Process the captured image
-        let imageUri = response.uri || response.assets?.[0]?.uri;
-        setSelectedImage(imageUri);
-        console.log(imageUri);
-      }
-    });
-  }
+const Drawer = createDrawerNavigator();
+
+export default function Home() {
+
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center' }}>
-     {selectedImage && (
-          <Image
-            source={{ uri: selectedImage }}
-            style={{ flex: 1 }}
-            resizeMode="contain"
-          />
-    )}
-    <View style={{ marginTop: 20 }}>
-      <Button title="Choose from Device" onPress={openImagePicker} />
-    </View>
-    <View style={{ marginTop: 20,marginBottom: 50 }}>
-      <Button title="Open Camera" onPress={handleCameraLaunch} />
-    </View>
-  </View>
+    <Drawer.Navigator>
+      <Drawer.Screen name="Home" component={BottomNavigatorMenu} />
+      <Drawer.Screen name="Report" component={Report} />
+      <Drawer.Screen name="Help" component={Help} />
+      <Drawer.Screen name="About us" component={Aboutus} />
+    </Drawer.Navigator>
   );
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

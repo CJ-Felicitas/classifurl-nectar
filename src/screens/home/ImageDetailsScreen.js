@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -7,15 +7,12 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
-// import {recognizeImage} from './ImageDetailsUtils';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+const Drawer = createDrawerNavigator();
 
 export default function ImageDetailsScreen({navigation}) {
-  const Tab = createBottomTabNavigator();
-
   // function the image picker/phone gallery
   const openImagePicker = async () => {
     const options = {
@@ -70,6 +67,7 @@ export default function ImageDetailsScreen({navigation}) {
     console.log('PasteUrl Component Opened');
     navigation.navigate('PasteUrl');
   };
+
   return (
     <ScrollView>
       <View style={styles.container}>

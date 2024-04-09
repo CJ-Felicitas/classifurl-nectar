@@ -7,7 +7,9 @@ import DataPrivacyScreen from './src/screens/dataprivacy';
 import PasteUrl from './src/screens/paste';
 import ImageDetailsScreen from './src/screens/home/ImageDetailsScreen';
 import ImagePreview from './src/screens/imagepreview';
+import Home from './src/screens/home';
 const stack = createNativeStackNavigator();
+
 const App = () => {
   return (
     <>
@@ -25,7 +27,7 @@ const App = () => {
           />
           <stack.Screen
             name={'HomeScreen'}
-            component={ImageDetailsScreen}
+            component={Home}
             options={{headerShown: false}}
           />
           <stack.Screen
