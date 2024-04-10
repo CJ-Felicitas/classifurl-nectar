@@ -1,15 +1,44 @@
 import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
 import React, {useState} from 'react';
-import { classifyurl } from '../../functions/Classify';
-
 
 export default function PasteUrl({navigation}) {
   const [url, setUrl] = useState('');
 
-  const classify = async () => {
-      const data = await classifyurl(url);
+  const postData = async () => {
+    try {
+      // post requests the data to the api server
+      // the url is the url that the user inputs
+      // the response is the data that is returned from the server
+      // the data is the json data that is returned from the server
+      // the flask is the data that is returned from the flask server
+      
+      // data flows like this:
+      // classifurl-nectar (react-native) -> classifurl-nebula (express) -> classifurl-themis (flask)
+      
+      const response = await fetch('http://74.226.249.87:3000/api/submiturl', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          url: url,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `Network response was not ok (${response.status} - ${response.statusText})`,
+        );
+      }
+
+      const data = await response.json();
+
       navigation.navigate('ClassificationResult', {data});
-  }
+
+    } catch (error) {
+      console.error('Error fetching data:', error.message);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -20,12 +49,10 @@ export default function PasteUrl({navigation}) {
           style={styles.input}
         />
         <Button
-          onPress={classify}
+          onPress={postData}
           style={styles.fixToText}
           title="Submit URL"
         />
-        {/* <Text style={styles.title}>{reply}</Text>
-        <Text style={styles.title}>the url you sent is "{urlsubmit}"</Text> */}
       </View>
     </View>
   );
