@@ -1,12 +1,33 @@
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
-import React, {useState} from 'react'
+import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import React, {useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function Report({navigation}) {
   const [url, setUrl] = useState('');
-  // const [detectedText, setDetectedText] = useState('');
+  const [jsonData, setJsonData] = useState(null);
 
+
+  // get the current time
+  const getCurrentTime = () => {
+    const currentTime = new Date();
+    return currentTime.toLocaleString(); // Convert to local time string
+  };
+
+  // store the data into the async storage for history data
+  const storeData = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem(getCurrentTime(), jsonValue);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  /**
+   *
+   */
   const postReport = async () => {
-
     const response = await fetch('http://74.226.249.87:3000/api/reporturl', {
       method: 'POST',
       headers: {
@@ -16,18 +37,22 @@ export default function Report({navigation}) {
         url: url,
       }),
     });
-
+  
     const data = await response.json();
-    console.log("Data has been reported");
+    console.log('Data has been reported');
+    console.log(url);
+  
+    // Directly pass the data to storeData
+    storeData({url: url, type: 'Report URL'});
+  
     navigation.navigate('Home');
   };
-
   return (
     <View style={styles.container}>
       <View>
         <Text style={styles.title}>Report</Text>
         <TextInput
-          onChangeText={newUrl => setUrl(newUrl)} 
+          onChangeText={newUrl => setUrl(newUrl)}
           style={styles.input}
         />
         <Button

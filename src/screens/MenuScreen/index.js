@@ -33,7 +33,7 @@ export default function ImageDetailsScreen({navigation}) {
         let imageUri = response.uri || response.assets?.[0]?.uri;
 
         // if the imageUri is not null, navigate to the ImagePreview screen
-        navigation.navigate('ImagePreview', {imageUri});
+        navigation.navigate('ImagePreview', {imageUri, type: 'Upload from gallery'});
       }
     });
   };
@@ -58,7 +58,7 @@ export default function ImageDetailsScreen({navigation}) {
         // retrieves the metadata that is returned from the image-picker-library
         let imageUri = response.uri || response.assets?.[0]?.uri;
         // if the imageUri is not null, navigate to the ImagePreview screen
-        navigation.navigate('ImagePreview', {imageUri});
+        navigation.navigate('ImagePreview', {imageUri, type: 'Upload via Camera'});
       }
     });
   };

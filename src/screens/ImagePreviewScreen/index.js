@@ -13,6 +13,7 @@ import {
   Button,
 } from 'react-native';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useState, useEffect} from 'react';
 import {useRoute} from '@react-navigation/native';
 import {recognizeImage} from '../MenuScreen/ImageDetailsUtils';
@@ -22,15 +23,34 @@ export default function ImagePreview({navigation}) {
   const route = useRoute();
   // Get the imageUri that is passed from the route params
   const {imageUri} = route.params;
+  const {type} = route.params;
 
   // image displayer
   const [selectedImage, setSelectedImage] = useState(null);
 
   // var that holds the returned result from the text recognition module
   const [detectedText, setDetectedText] = useState(null);
-  
+
   // progress spinner
   const [isLoading, setIsLoading] = useState(false);
+
+  const [jsonData, setJsonData] = useState(null);
+
+  // get the current time
+  const getCurrentTime = () => {
+    const currentTime = new Date();
+    return currentTime.toLocaleString(); // Convert to local time string
+  };
+
+  // store the data into the async storage for history data
+  const storeData = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem(getCurrentTime(), jsonValue);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   // load the recognize function when the component is mounted
   useEffect(() => {
@@ -72,7 +92,7 @@ export default function ImagePreview({navigation}) {
       });
 
       const data = await response.json();
-
+      storeData({url: detectedText, type: type});
       navigation.navigate('ClassificationResult', {data});
 
 
