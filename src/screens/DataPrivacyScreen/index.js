@@ -75,41 +75,27 @@ export default function DataPrivacyScreen({navigation}) {
             <ScrollView contentContainerStyle={styles.scrollContainer}>
               <Text style={styles.modalTitle}>Terms and Conditions</Text>
               <Text style={styles.modalActualContent}>
-                Lorem Ipsum Privacy It is a long established fact that a reader
-                will be distracted by the readable content of a page when
-                looking at its layout. The point of using Lorem Ipsum is that it
-                has a more-or-less normal distribution of letters, as opposed to
-                using 'Content here, content here', making it look like readable
-                English. Many desktop publishing packages and web page editors
-                now use Lorem Ipsum as their default model text, and a search
-                for 'lorem ipsum' will uncover many web sites still in their
-                infancy. Various versions have evolved over the years, sometimes
-                by accident, sometimes on purpose (injected humour and the
-                like). 'Content here, content here', making it look like
-                readable English. Many desktop publishing packages and web page
-                editors now use Lorem Ipsum as their default model text, and a
-                search for 'lorem ipsum' will uncover many web sites still in
-                their infancy. Various versions have evolved over the years,
-                sometimes by accident, sometimes on purpose (injected humour and
-                the like). 'Content here, content here', making it look like
-                readable English. Many desktop publishing packages and web page
-                editors now use Lorem Ipsum as their default model text, and a
-                search for 'lorem ipsum' will uncover many web sites still in
-                their infancy. Various versions have evolved over the years,
-                sometimes by accident, sometimes on purpose (injected humour and
-                the like). 'Content here, content here', making it look like
-                readable English. Many desktop publishing packages and web page
-                editors now use Lorem Ipsum as their default model text, and a
-                search for 'lorem ipsum' will uncover many web sites still in
-                their infancy. Various versions have evolved over the years,
-                sometimes by accident, sometimes on purpose (injected humour and
-                the like). 'Content here, content here', making it look like
-                readable English. Many desktop publishing packages and web page
-                editors now use Lorem Ipsum as their default model text, and a
-                search for 'lorem ipsum' will uncover many web sites still in
-                their infancy. Various versions have evolved over the years,
-                sometimes by accident, sometimes on purpose (injected humour and
-                the like).
+                Privacy and transparency are fundamental principles that
+                contribute to a secure cyber environment by preventing potential
+                misuse and improper handling of data. In adherence to these
+                principles and recognizing the significance of Republic Act No.
+                10173, also known as the Data Privacy Act of 2012 (DPA),
+                Classifurl, a mobile-based application designed for classifying
+                malicious URLs, places a strong emphasis on individual rights
+                and protection concerning the processing of information through
+                Information and Communication Systems. 
+                {/*  */}
+                When utilizing Classifurl, users are required to capture, upload, or input the
+                URL link for analysis. It is crucial to note that all uploaded
+                images and captured pictures are not stored within the
+                application. Consequently, these images are automatically
+                deleted after the URL has been successfully scanned, ensuring
+                that user data is handled with the utmost care and privacy. 
+                {/*  */}
+                The primary objective of this Data Privacy Statement is to establish
+                a foundation and guide involving sensitive data. This includes
+                the responsible usage of consent forms and upholding the
+                integrity of the data privacy policy ...
               </Text>
               <View style={styles.modalCloseTextContainer}>
                 <TouchableOpacity onPress={toggleModal}>
