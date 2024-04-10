@@ -73,9 +73,9 @@ export default function ImageDetailsScreen({navigation}) {
       <View style={styles.container}>
         <Text style={styles.welcome}>Classifurl</Text>
         <Text style={styles.slogan_one}>
-          this is a slogan lorem ipsum something in here
+          Welcome to Classifurl
         </Text>
-        <Text style={styles.slogan_two}>this is a slogan second row</Text>
+        <Text style={styles.slogan_two}>Select an Option to Classify URL</Text>
 
         {/* first option = scan option */}
         <TouchableOpacity
@@ -161,12 +161,14 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '900',
     color: 'black',
+    marginTop:10,
   },
   slogan_one: {
     marginTop: 5,
     fontSize: 15,
     fontWeight: '400',
     color: 'black',
+    
   },
   slogan_two: {
     fontSize: 15,

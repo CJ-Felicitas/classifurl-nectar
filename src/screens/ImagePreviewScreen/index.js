@@ -10,21 +10,25 @@ import {
   ScrollView,
   StyleSheet,
   ActivityIndicator,
+  Button,
 } from 'react-native';
 
 import React, {useState, useEffect} from 'react';
 import {useRoute} from '@react-navigation/native';
-import {recognizeImage} from '../home/ImageDetailsUtils';
+import {recognizeImage} from '../MenuScreen/ImageDetailsUtils';
 
 export default function ImagePreview({navigation}) {
 
   const route = useRoute();
   // Get the imageUri that is passed from the route params
   const {imageUri} = route.params;
+
   // image displayer
   const [selectedImage, setSelectedImage] = useState(null);
+
   // var that holds the returned result from the text recognition module
   const [detectedText, setDetectedText] = useState(null);
+  
   // progress spinner
   const [isLoading, setIsLoading] = useState(false);
 
@@ -54,13 +58,36 @@ export default function ImagePreview({navigation}) {
     }
   };
 
+  const classifyUrl = async () => {
+    try {
+      
+      const response = await fetch('http://74.226.249.87:3000/api/submiturl', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          url: detectedText,
+        }),
+      });
+
+      const data = await response.json();
+
+      navigation.navigate('ClassificationResult', {data});
+
+
+    } catch (error) {
+      
+    }
+  };
+
   return (
     <ScrollView>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         {selectedImage && (
           <Image
             source={{uri: selectedImage}}
-            style={{width: 500, height: 500, marginVertical: 20}}
+            style={{width: 400, height: 400, marginVertical: 20}}
             resizeMode="contain"
           />
         )}
@@ -70,6 +97,7 @@ export default function ImagePreview({navigation}) {
             {detectedText}
           </Text>
         )}
+        <Button title='Click' onPress={classifyUrl}/>
       </View>
     </ScrollView>
   );

@@ -1,0 +1,2 @@
+- This folder contains the navigator of the screens
+- The hierachy of the navigators are [Stack Navigator -> Drawer Navigator -> BottomTabNavigator]

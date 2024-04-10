@@ -3,10 +3,10 @@ import React from 'react';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
-import BottomNavigatorMenu from '../bottomnavigatormenu';
-import Report from '../report';
-import Help from '../help';
-import Aboutus from '../aboutus';
+import BottomNavigatorMenu from '../BottomTabNavigator';
+import Report from '../../screens/ReportScreen';
+import Help from '../../screens/HelpScreen';
+import Aboutus from '../../screens/AboutUsScreen';
 
 const Drawer = createDrawerNavigator();
 

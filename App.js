@@ -2,14 +2,15 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import SplashScreen from './src/screens/splash';
-import DataPrivacyScreen from './src/screens/dataprivacy';
-import PasteUrl from './src/screens/paste';
-import ImageDetailsScreen from './src/screens/home/ImageDetailsScreen';
-import ImagePreview from './src/screens/imagepreview';
-import Home from './src/screens/home';
-const stack = createNativeStackNavigator();
+import SplashScreen from './src/screens/SplashScreen';
+import DataPrivacyScreen from './src/screens/DataPrivacyScreen';
+import PasteUrl from './src/screens/PasteUrlScreen';
+import ImageDetailsScreen from './src/screens/MenuScreen';
+import ImagePreview from './src/screens/ImagePreviewScreen';
+import Home from './src/navigator/DrawerNavigator';
+import ClassificationResult from './src/screens/ClassificationResultScreen';
 
+const stack = createNativeStackNavigator();
 const App = () => {
   return (
     <>
@@ -38,6 +39,11 @@ const App = () => {
           <stack.Screen
             name={'ImagePreview'}
             component={ImagePreview}
+            options={{headerShown: false}}
+          />
+             <stack.Screen
+            name={'ClassificationResult'}
+            component={ClassificationResult}
             options={{headerShown: false}}
           />
         </stack.Navigator>

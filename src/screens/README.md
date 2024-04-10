@@ -1,0 +1,2 @@
+- this folder contains all of the screens of the app and will only be exclusive to screens
+- each screen has its own function so just check it out if you're curios where the processing of data or logic takes place.
