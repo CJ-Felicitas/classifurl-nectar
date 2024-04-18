@@ -34,7 +34,6 @@ export default function ImagePreview({navigation}) {
   // progress spinner
   const [isLoading, setIsLoading] = useState(false);
 
-  const [jsonData, setJsonData] = useState(null);
 
   // get the current time
   const getCurrentTime = () => {
@@ -68,6 +67,7 @@ export default function ImagePreview({navigation}) {
       if (result?.blocks?.length > 0) {
         const text = result.blocks.map(block => block.text).join(' ');
         setDetectedText(text);
+
       } else {
         setDetectedText('No text detected');
       }
@@ -78,9 +78,13 @@ export default function ImagePreview({navigation}) {
     }
   };
 
+  const filterDetectedText = () => {
+    
+  };
+
+  // submit the URL to the Backend (Nebula and Themis)
   const classifyUrl = async () => {
     try {
-      
       const response = await fetch('http://74.226.249.87:3000/api/submiturl', {
         method: 'POST',
         headers: {
@@ -90,12 +94,9 @@ export default function ImagePreview({navigation}) {
           url: detectedText,
         }),
       });
-
       const data = await response.json();
       storeData({url: detectedText, type: type});
       navigation.navigate('ClassificationResult', {data});
-
-
     } catch (error) {
       
     }

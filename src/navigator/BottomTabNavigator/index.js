@@ -7,9 +7,11 @@ import History from '../../screens/HistoryScreen';
 
 const Tab = createBottomTabNavigator();
 
-export default function BottomNavigatorMenu() {
+export default function BottomNavigatorMenu({route}) {
+  const {activeTab} = route.params || {};
+
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false, tabBarStyle:{height:55 } }}>
+    <Tab.Navigator initialRouteName={activeTab || "Menu"} screenOptions={{ headerShown: false, tabBarStyle:{height:55 } }}>
     <Tab.Screen
         name="Rank"
         component={Rank}
