@@ -5,7 +5,6 @@ import {useRoute} from '@react-navigation/native';
 export default function ClassificationResult({navigation}) {
     
     const route = useRoute();
-    // the data that is passed from the image preview
     const {data} = route.params;
     return (
     <View>

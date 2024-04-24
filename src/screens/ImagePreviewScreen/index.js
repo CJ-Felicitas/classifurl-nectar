@@ -11,6 +11,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   Button,
+  TextInput
 } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -66,7 +67,9 @@ export default function ImagePreview({navigation}) {
 
       if (result?.blocks?.length > 0) {
         const text = result.blocks.map(block => block.text).join(' ');
-        setDetectedText(text);
+        const regex = /(?:https?:\/\/)?(?:(?:[a-z0-9]+(?:-[a-z0-9]+)*\.)+[a-z]{2,}|(?:\d{1,3}\.){3}\d{1,3})(?::\d+)?(?:\/[^\\s]*)?/gi;
+        const urls = text.match(regex);
+        setDetectedText(urls);
 
       } else {
         setDetectedText('No text detected');
@@ -103,27 +106,40 @@ export default function ImagePreview({navigation}) {
   };
 
   return (
-    <ScrollView>
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        {selectedImage && (
-          <Image
-            source={{uri: selectedImage}}
-            style={{width: 400, height: 400, marginVertical: 20}}
-            resizeMode="contain"
-          />
-        )}
-        {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
-        {detectedText !== null && (
-          <Text style={{fontSize: 18, textAlign: 'center', margin: 20}}>
-            {detectedText}
-          </Text>
-        )}
-        <Button title='Click' onPress={classifyUrl}/>
-      </View>
-    </ScrollView>
+    <ScrollView contentContainerStyle={{ flex: 1 }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      {selectedImage && (
+        <Image
+          source={{ uri: selectedImage }}
+          style={{ width: 400, height: 400, marginVertical: 20 }}
+          resizeMode="contain"
+        />
+      )}
+      {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
+      {detectedText !== null && (
+        <Text style={{ fontSize: 18, textAlign: 'center', margin: 20 }}>
+          {detectedText}
+        </Text>
+      )}
+  
+      <TextInput
+        onChangeText={newUrl => setDetectedText(newUrl)}
+        style={[styles.input, { width: '80%', paddingHorizontal: 10, marginBottom: 20 }]}
+        defaultValue={Array.isArray(detectedText) ? detectedText.join('\n') : detectedText}
+      />
+  
+      <Button title="Click" onPress={classifyUrl} />
+    </View>
+  </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+  },
 });
