@@ -41,7 +41,7 @@ export default function Rank({navigation}) {
     fetchReportedUrls();
 
     // Set up a timer to fetch data periodically (e.g., every 30 seconds)
-    const intervalId = setInterval(fetchReportedUrls, 1000); // 30 seconds interval
+    const intervalId = setInterval(fetchReportedUrls, 5 * 60 * 1000); // 30 seconds interval
 
     // Clear the interval when the component unmounts
     return () => clearInterval(intervalId);

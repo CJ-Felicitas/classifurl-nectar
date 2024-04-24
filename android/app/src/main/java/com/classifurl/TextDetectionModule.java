@@ -38,7 +38,6 @@ public class TextDetectionModule extends ReactContextBaseJavaModule {
         InputImage image;
         try {
             image = InputImage.fromFilePath(getReactApplicationContext(), uri);
-            // When using Latin script library
             TextRecognizer recognizer =
                     TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
 
