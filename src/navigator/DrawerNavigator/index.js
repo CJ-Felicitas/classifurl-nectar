@@ -30,7 +30,7 @@ export default function Home() {
       <Drawer.Screen
         name="Help"
         component={Help}
-        options={{title: 'Help', headerTitle: 'Help'}}
+        options={{title: 'Help', headerTitle: 'Help Center'}}
       />
       <Drawer.Screen
         name="About us"
