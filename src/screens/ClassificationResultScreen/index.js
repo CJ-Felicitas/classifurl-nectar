@@ -4,7 +4,18 @@ import {useRoute} from '@react-navigation/native';
 
 export default function ClassificationResult({navigation}) {
   const route = useRoute();
-  const {data} = route.params;
+  const {data, type, url_store} = route.params;
+
+  
+
+  const storeData = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem(getCurrentTime(), jsonValue);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const BenignView = () => {
     return (

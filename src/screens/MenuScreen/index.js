@@ -79,7 +79,7 @@ export default function ImageDetailsScreen({navigation}) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Image source={require('../../assets/classifurl.png')} />
+        <Image resizeMode='contain' style={{height: 30, width: 150}} source={require('../../assets/classifurl.png')} />
         <View><Text style={{marginTop:10, color:'black'}}>Select a method to get started</Text></View>
         <View style={styles.buttonMargin} />
         {/* first button */}
@@ -89,7 +89,7 @@ export default function ImageDetailsScreen({navigation}) {
             source={require('../../assets/button-background.png')}>
             <View style={styles.contentContainer}>
               <View style={styles.imageContainer}>
-                <Image source={require('../../assets/scan_option.png')} />
+                <Image style={styles.imageSize} source={require('../../assets/scan_option.png')} />
               </View>
               <View style={styles.textContainer}>
                 <Text style={styles.text}>CAPTURE URL</Text>
@@ -108,7 +108,7 @@ export default function ImageDetailsScreen({navigation}) {
             source={require('../../assets/button-background.png')}>
             <View style={styles.contentContainer}>
               <View style={styles.imageContainer}>
-                <Image source={require('../../assets/upload_option.png')} />
+                <Image style={styles.imageSize} source={require('../../assets/upload_option.png')} />
               </View>
               <View style={styles.textContainer}>
                 <Text style={styles.text}>UPLOAD IMAGE</Text>
@@ -128,7 +128,7 @@ export default function ImageDetailsScreen({navigation}) {
             source={require('../../assets/button-background.png')}>
             <View style={styles.contentContainer}>
               <View style={styles.imageContainer}>
-                <Image source={require('../../assets/paste_option.png')} />
+                <Image style={styles.imageSize} source={require('../../assets/paste_option.png')} />
               </View>
               <View style={styles.textContainer}>
                 <Text style={styles.text}>INPUT/PASTE URL</Text>
@@ -162,6 +162,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     flexDirection: 'column',
+    marginLeft: 15,
   },
   imageContainer: {
     marginRight: 10,
@@ -169,7 +170,8 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: '900',
+    fontFamily: 'Inter',
   },
   imagebg: {
     padding: 30,
@@ -179,8 +181,13 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 12,
     fontStyle: 'italic',
+    fontFamily: 'Inter'
   },
   buttonMargin: {
     height: 20,
   },
+  imageSize: {
+    width: 70,
+    height: 70,
+  }
 });

@@ -92,7 +92,7 @@ export default function ImagePreview({navigation}) {
         }),
       });
       const data = await response.json();
-      storeData({url: detectedText, type: type});
+      storeData({url: detectedText, type: type, result: data.flask});
       navigation.navigate('ClassificationResult', {data});
     } catch (error) {
       
