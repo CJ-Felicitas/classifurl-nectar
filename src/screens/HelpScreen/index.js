@@ -4,7 +4,7 @@ import React from 'react'
 export default function Help() {
   return (
     <View>
-      <Text>help screen</Text>
+      <Text style={{fontFamily: 'Inter'}}>help screen</Text>
     </View>
   )
 }

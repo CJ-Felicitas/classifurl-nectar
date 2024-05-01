@@ -62,7 +62,7 @@ export default function Report({navigation}) {
 
 <View style={styles.container}>
 <View style={styles.content}>
-  <Image source={require('../../assets/paste_logo.png')} />
+  <Image style={styles.imageSize} source={require('../../assets/report_icon.png')} />
   <TextInput
     onChangeText={newUrl => setUrl(newUrl)}
     style={styles.input}
@@ -120,6 +120,10 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color : 'white'
+  },
+  imageSize:{
+    width: 100,
+    height: 100
   }
 });
 

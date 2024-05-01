@@ -54,6 +54,7 @@ export default function Rank({navigation}) {
       </View>
       {reportedUrls.map((url, index) => (
         <View key={url.id} style={styles.rankContainer}>
+          <Text style={styles.rankTextLeft}>{index + 1}</Text>
           <Text style={styles.rankTextRight}>{url.url}</Text>
           <Text style={styles.rankTextLeft}>{url.report_count}</Text>
         </View>
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     padding: 10,
-    marginBottom: 30,
+    
   },
   title: {
     fontSize: 30,
@@ -78,8 +79,8 @@ const styles = StyleSheet.create({
   rankContainer: {
     flexDirection: 'row',
     padding: 10,
-    backgroundColor: 'green',
-    borderRadius: 15,
+    backgroundColor: '#59034D',
+    borderRadius: 7,
     marginTop: 5,
     marginBottom: 10,
     justifyContent: 'space-between',

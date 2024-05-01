@@ -59,7 +59,9 @@ export default function PasteUrl({navigation}) {
       }
 
       const data = await response.json();
-      storeData({url: url, type: 'Paste URL'});
+  
+
+      storeData({url: url, type: 'Paste URL', result: data.flask});
       navigation.navigate('ClassificationResult', {data});
     } catch (error) {
       console.error('Error fetching data:', error.message);
@@ -69,7 +71,7 @@ export default function PasteUrl({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Image source={require('../../assets/paste_logo.png')} />
+        <Image style={{height: 80, width: 80}} source={require('../../assets/paste_logo.png')} />
         <TextInput
           onChangeText={newUrl => setUrl(newUrl)}
           style={styles.input}
@@ -97,6 +99,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', // Center content horizontally
   },
   input: {
+    marginTop: 20, 
     height: 40,
     marginVertical: 12, // Adjust vertical margin
     borderWidth: 1,
@@ -116,6 +119,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 18,
+    fontWeight: 'bold',
   },
   imagebg: {
     padding: 30,

@@ -13,7 +13,7 @@ export default function BottomNavigatorMenu({route}) {
   return (
     <Tab.Navigator
       initialRouteName={activeTab || 'Menu'}
-      screenOptions={{headerShown: false, tabBarStyle: {height: 55}}}>
+      screenOptions={{headerShown: false, tabBarStyle: {height: 63}}}>
       <Tab.Screen
         name="Rank"
         component={Rank}
@@ -33,7 +33,7 @@ export default function BottomNavigatorMenu({route}) {
           tabBarIcon: ({focused, color, size}) => (
             <Image
               source={require('../../assets/menu-logo.png')}
-              style={{width: 90, height: 90}}
+              style={{width: 40, height: 40}}
             />
           ),
         }}

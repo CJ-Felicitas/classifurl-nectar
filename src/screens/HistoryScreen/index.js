@@ -1,4 +1,12 @@
-import {StyleSheet, Text, View, FlatList, Button} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Button,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -61,23 +69,55 @@ export default function History() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>History</Text>
+      <View style={styles.titleContainer}>
+        <Image
+          style={styles.imageSize}
+          source={require('../../assets/history_icon.png')}
+        />
+        <Text style={styles.title}>History</Text>
+      </View>
+
       <FlatList
         data={historyData}
         renderItem={({item}) => (
           <View style={styles.item}>
-            <Text style={styles.key}>Date and Time: {item.key}</Text>
-            {/* Display type on the left side and URL on the right side */}
+            <View>
+              {/* Conditionally render image based on item.data?.type */}
+              {item.data?.type === 'Paste URL' && (
+                <Image
+                  style={{height: 90, width: 90}}
+                  source={require('../../assets/paste_option.png')}
+                />
+              )}
+              {item.data?.type === 'Upload from gallery' && (
+                <Image
+                  style={{height: 90, width: 90}}
+                  source={require('../../assets/upload_option.png')}
+                />
+              )}
+              {item.data?.type === 'Upload via Camera' && (
+                <Image
+                  style={{height: 90, width: 90}}
+                  source={require('../../assets/scan_option.png')}
+                />
+              )}
+            </View>
             <View style={styles.rowContainer}>
+              <Text style={styles.key}>{item.key}</Text>
               <Text style={styles.leftText}>Type: {item.data?.type}</Text>
               <Text style={styles.rightText}>URL: {item.data?.url}</Text>
+              <Text style={styles.rightText}>Result: {item.data?.result}</Text>
             </View>
           </View>
         )}
         keyExtractor={item => item.key.toString()}
       />
-      <Text style={{textAlign: 'center'}}>this button is for testing only</Text>
-      <Button title="Clear History" onPress={clearAllData} />
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={clearAllData}>
+          <Text style={styles.buttonText}>CLEAR HISTORY</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -87,18 +127,23 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
+  titleContainer: {
+    flexDirection: 'row',
+  },
   title: {
     fontSize: 30,
-    fontWeight: '900',
-    color: 'black',
+    fontWeight: '700',
+    color: '#780000',
     marginBottom: 10,
   },
   item: {
+    flex: 1,
+    flexDirection: 'row',
     marginBottom: 10,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
+    marginTop: 10,
+    padding: 20,
+    borderRadius: 20,
+    backgroundColor: 'white',
   },
   key: {
     fontWeight: 'bold',
@@ -109,16 +154,37 @@ const styles = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: 'column',
-  
+    marginLeft: 20,
   },
   leftText: {
     fontWeight: 'bold',
     color: 'blue', // Example color for type
     marginTop: 2,
-    
   },
   rightText: {
     color: 'green', // Example color for URL
     marginTop: 2,
   },
+  imageSize: {
+    width: 36,
+    height: 36,
+    marginRight: 10,
+  },
+  button: {
+    backgroundColor: 'transparent',
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    alignItems: 'center',
+    marginTop: 10,
+    maxWidth: '70%',
+    borderColor: '#914186'
+  },
+  buttonContainer :{
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'black'
+  }
 });
