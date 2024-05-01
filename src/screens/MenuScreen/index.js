@@ -6,9 +6,11 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import PasteUrl from '../PasteUrlScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -33,7 +35,10 @@ export default function ImageDetailsScreen({navigation}) {
         let imageUri = response.uri || response.assets?.[0]?.uri;
 
         // if the imageUri is not null, navigate to the ImagePreview screen
-        navigation.navigate('ImagePreview', {imageUri, type: 'Upload from gallery'});
+        navigation.navigate('ImagePreview', {
+          imageUri,
+          type: 'Upload from gallery',
+        });
       }
     });
   };
@@ -58,7 +63,10 @@ export default function ImageDetailsScreen({navigation}) {
         // retrieves the metadata that is returned from the image-picker-library
         let imageUri = response.uri || response.assets?.[0]?.uri;
         // if the imageUri is not null, navigate to the ImagePreview screen
-        navigation.navigate('ImagePreview', {imageUri, type: 'Upload via Camera'});
+        navigation.navigate('ImagePreview', {
+          imageUri,
+          type: 'Upload via Camera',
+        });
       }
     });
   };
@@ -71,53 +79,66 @@ export default function ImageDetailsScreen({navigation}) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.welcome}>Classifurl</Text>
-        <Text style={styles.slogan_one}>
-          Welcome to Classifurl
-        </Text>
-        <Text style={styles.slogan_two}>Select an Option to Classify URL</Text>
-
-        {/* first option = scan option */}
-        <TouchableOpacity
-          onPress={handleCameraLaunch}
-          style={styles.submitOption}>
-          <View style={styles.submitOptionImageView}>
-            <Image
-              source={require('../../assets/scan_option.png')}
-              style={styles.submitOptionImage}
-            />
-          </View>
-          <View style={styles.submitOptionTextView}>
-            <Text style={styles.submitOptionText}>Scan Image</Text>
-          </View>
+        <Image source={require('../../assets/classifurl.png')} />
+        <View><Text style={{marginTop:10, color:'black'}}>Select a method to get started</Text></View>
+        <View style={styles.buttonMargin} />
+        {/* first button */}
+        <TouchableOpacity style={styles.button} onPress={handleCameraLaunch}>
+          <ImageBackground
+            style={styles.imagebg}
+            source={require('../../assets/button-background.png')}>
+            <View style={styles.contentContainer}>
+              <View style={styles.imageContainer}>
+                <Image source={require('../../assets/scan_option.png')} />
+              </View>
+              <View style={styles.textContainer}>
+                <Text style={styles.text}>CAPTURE URL</Text>
+                <Text style={styles.subText}>
+                  Point your camera to a URL to scan it for your safety.
+                </Text>
+              </View>
+            </View>
+          </ImageBackground>
         </TouchableOpacity>
-
-        {/* second option = upload image option*/}
-        <TouchableOpacity onPress={openImagePicker} style={styles.submitOption}>
-          <View style={styles.submitOptionImageView}>
-            <Image
-              source={require('../../assets/upload_option.png')}
-              style={styles.submitOptionImage}
-            />
-          </View>
-          <View style={styles.submitOptionTextView}>
-            <Text style={styles.submitOptionText}>Upload Image</Text>
-          </View>
+        <View style={styles.buttonMargin} />
+        {/* second button */}
+        <TouchableOpacity style={styles.button} onPress={openImagePicker}>
+          <ImageBackground
+            style={styles.imagebg}
+            source={require('../../assets/button-background.png')}>
+            <View style={styles.contentContainer}>
+              <View style={styles.imageContainer}>
+                <Image source={require('../../assets/upload_option.png')} />
+              </View>
+              <View style={styles.textContainer}>
+                <Text style={styles.text}>UPLOAD IMAGE</Text>
+                <Text style={styles.subText}>
+                  Upload an image with a URL and let Classifurl check it for
+                  security threats.
+                </Text>
+              </View>
+            </View>
+          </ImageBackground>
         </TouchableOpacity>
-
-        {/* third option = paste url option*/}
-        <TouchableOpacity
-          onPress={handlePasteUrlOption}
-          style={styles.submitOption}>
-          <View style={styles.submitOptionImageView}>
-            <Image
-              source={require('../../assets/paste_option.png')}
-              style={styles.submitOptionImage}
-            />
-          </View>
-          <View style={styles.submitOptionTextView}>
-            <Text style={styles.submitOptionText}>Paste URL</Text>
-          </View>
+        <View style={styles.buttonMargin} />
+        {/* third button */}
+        <TouchableOpacity style={styles.button} onPress={handlePasteUrlOption}>
+          <ImageBackground
+            style={styles.imagebg}
+            source={require('../../assets/button-background.png')}>
+            <View style={styles.contentContainer}>
+              <View style={styles.imageContainer}>
+                <Image source={require('../../assets/paste_option.png')} />
+              </View>
+              <View style={styles.textContainer}>
+                <Text style={styles.text}>INPUT/PASTE URL</Text>
+                <Text style={styles.subText}>
+                  Type or paste a URL directly into Classifurl to quickly assess
+                  its safety.
+                </Text>
+              </View>
+            </View>
+          </ImageBackground>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -130,50 +151,36 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 30,
   },
-  submitOption: {
-    flex: 1,
+  button: {
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  contentContainer: {
     flexDirection: 'row',
-    padding: 40,
-    backgroundColor: 'green',
-    borderRadius: 15,
-    marginTop: 10,
-    marginBottom: 10,
+    alignItems: 'center',
   },
-  submitOptionImage: {
-    width: 65,
-    height: 65,
+  textContainer: {
+    flex: 1,
+    flexDirection: 'column',
   },
-  submitOptionText: {
+  imageContainer: {
+    marginRight: 10,
+  },
+  text: {
     color: 'white',
+    fontSize: 18,
     fontWeight: 'bold',
-    fontSize: 20,
   },
-  submitOptionTextView: {
-    justifyContent: 'center',
-    alignContent: 'center',
+  imagebg: {
+    padding: 30,
+    borderRadius: 10,
   },
-  submitOptionImageView: {
-    marginRight: 20,
-    alignContent: 'center',
-    justifyContent: 'center',
+  subText: {
+    color: 'white',
+    fontSize: 12,
+    fontStyle: 'italic',
   },
-  welcome: {
-    fontSize: 30,
-    fontWeight: '900',
-    color: 'black',
-    marginTop:10,
-  },
-  slogan_one: {
-    marginTop: 5,
-    fontSize: 15,
-    fontWeight: '400',
-    color: 'black',
-    
-  },
-  slogan_two: {
-    fontSize: 15,
-    fontWeight: '400',
-    color: 'black',
-    marginBottom: 10,
+  buttonMargin: {
+    height: 20,
   },
 });

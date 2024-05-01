@@ -18,24 +18,24 @@ export default function Home() {
         component={BottomNavigatorMenu}
         options={{
           title: 'Home',
-          headerTitle: '',
+          headerTitle: 'Home',
           initialParams: {activeTab: 'Menu'},
         }}
       />
       <Drawer.Screen
         name="Report"
         component={Report}
-        options={{title: 'Report', headerTitle: ''}}
+        options={{title: 'Report', headerTitle: 'Report'}}
       />
       <Drawer.Screen
         name="Help"
         component={Help}
-        options={{title: 'Help', headerTitle: ''}}
+        options={{title: 'Help', headerTitle: 'Help'}}
       />
       <Drawer.Screen
         name="About us"
         component={Aboutus}
-        options={{title: 'About us', headerTitle: ''}}
+        options={{title: 'About us', headerTitle: 'About Us'}}
       />
     </Drawer.Navigator>
   );

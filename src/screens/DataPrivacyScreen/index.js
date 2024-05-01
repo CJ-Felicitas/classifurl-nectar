@@ -45,10 +45,11 @@ export default function DataPrivacyScreen({navigation}) {
         <View style={styles.checkboxContainer}>
           <CheckBox value={isChecked} onValueChange={handleCheckboxChange} />
           <Text style={styles.checkboxLabel}>
-            I hereby confirm that I have read and agree with the{' '}
+            By continuing, you're accepting our Terms of Service. To learn more, see the {' '}
             <Text style={styles.linkText} onPress={toggleModal}>
               Privacy Policy and Terms and Conditions
             </Text>
+            <Text> of Classifurl.</Text>
           </Text>
         </View>
 

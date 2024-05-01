@@ -67,9 +67,7 @@ export default function ImagePreview({navigation}) {
 
       if (result?.blocks?.length > 0) {
         const text = result.blocks.map(block => block.text).join(' ');
-        const regex = /(?:https?:\/\/)?(?:(?:[a-z0-9]+(?:-[a-z0-9]+)*\.)+[a-z]{2,}|(?:\d{1,3}\.){3}\d{1,3})(?::\d+)?(?:\/[^\\s]*)?/gi;
-        const urls = text.match(regex);
-        setDetectedText(urls);
+        setDetectedText(text);
 
       } else {
         setDetectedText('No text detected');
@@ -79,10 +77,6 @@ export default function ImagePreview({navigation}) {
       console.error('Error recognizing image:', error);
       setDetectedText('Error recognizing image');
     }
-  };
-
-  const filterDetectedText = () => {
-    
   };
 
   // submit the URL to the Backend (Nebula and Themis)

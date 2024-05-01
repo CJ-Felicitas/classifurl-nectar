@@ -1,9 +1,17 @@
-import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  Image,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
 import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import LinearGradient from 'react-native-linear-gradient';
 export default function PasteUrl({navigation}) {
-
   const [url, setUrl] = useState('');
   const [jsonData, setJsonData] = useState(null);
 
@@ -60,17 +68,20 @@ export default function PasteUrl({navigation}) {
 
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.title}>Paste URL</Text>
+      <View style={styles.content}>
+        <Image source={require('../../assets/paste_logo.png')} />
         <TextInput
           onChangeText={newUrl => setUrl(newUrl)}
           style={styles.input}
+          placeholder='Paste the URL here'
         />
-        <Button
-          onPress={postData}
-          style={styles.fixToText}
-          title="Submit URL"
-        />
+        <TouchableOpacity onPress={postData}>
+          <LinearGradient
+            colors={['#BC52AE', '#853B7B', '#672C5F']}
+            style={styles.linearGradient}>
+            <Text style={styles.buttonText}>SCAN</Text>
+          </LinearGradient>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -79,23 +90,42 @@ export default function PasteUrl({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center', // Center content vertically
     padding: 20,
+  },
+  content: {
+    alignItems: 'center', // Center content horizontally
   },
   input: {
     height: 40,
-    margin: 12,
+    marginVertical: 12, // Adjust vertical margin
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
+    width: '100%', // Take full width
   },
-  title: {
-    textAlign: 'center',
-    fontWeight: '900',
-    fontSize: 30,
-    color: 'black',
+  button: {
+    marginTop: 20, // Adjust margin top as needed
   },
-  fixToText: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  buttonBackground: {
+    width: '100%',
+    height: 40, // Adjust height as needed
+    justifyContent: 'center', // Center content vertically
+    alignItems: 'center', // Center content horizontally
   },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+  },
+  imagebg: {
+    padding: 30,
+    borderRadius: 10,
+  },
+  linearGradient: {
+    padding: 10,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color : 'white'
+  }
 });
