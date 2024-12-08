@@ -17,6 +17,7 @@ export default function SplashScreen({navigation}) {
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
