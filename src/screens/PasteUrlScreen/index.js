@@ -42,7 +42,7 @@ export default function PasteUrl({navigation}) {
       // data flows like this:
       // classifurl-nectar (react-native) -> classifurl-nebula (express) -> classifurl-themis (flask)
 
-      const response = await fetch('http://127.0.0.1:3000/api/submiturl', {
+      const response = await fetch('https://maximum-cow-rightly.ngrok-free.app/api/submiturl', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
