@@ -1,4 +1,9 @@
 {
   "name": "classifurl",
-  "displayName": "classifurl"
+  "displayName": "classifurl",
+  "extra": {
+    "eas": {
+      "projectId": "4a2ccf37-c0b9-4210-aa28-99fbcae2c738"
+    }
+  }
 }
