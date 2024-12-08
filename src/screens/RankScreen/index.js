@@ -13,7 +13,7 @@ export default function Rank({navigation}) {
   useEffect(() => {
     const fetchReportedUrls = () => {
       // Define your API URL
-      const apiUrl = 'http://74.226.249.87:3000/api/getreportedurl';
+      const apiUrl = 'http://127.0.0.1:3000/api/getreportedurl';
 
       // Make an HTTP GET request using fetch
       fetch(apiUrl)
